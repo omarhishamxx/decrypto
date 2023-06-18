@@ -5,6 +5,7 @@
 # Usage: python3 Decrypto.py -m MODE -i 'ciphertext'
 import sys
 import base64
+import urllib.parse
 
 MORSE_CODE = {
     '.-': 'A', '-...': 'B', '-.-.': 'C', '-..': 'D', '.': 'E',
@@ -93,6 +94,14 @@ def decrypt_morse_code(ciphertext):
         plaintext += ' '
     return plaintext.strip()
 
+def decode_url(ciphertext):
+    try:
+        decoded_text = urllib.parse.unquote(ciphertext)
+        return decoded_text
+    except Exception:
+        print("Error: Invalid URL-encoded input.")
+        return None
+
 
 if __name__ == "__main__":
     args = sys.argv
@@ -145,6 +154,10 @@ if __name__ == "__main__":
                         decrypted_text = decrypt_morse_code(ciphertext)
                         if decrypted_text:
                             print("Decrypted plaintext:", decrypted_text)
+                    elif mode == "U":
+                        decoded_text = decode_url(ciphertext)
+                        if decoded_text:
+                            print("Decoded plaintext:", decoded_text)
                     else:
                         print("[-] Invalid mode selected.")
 
