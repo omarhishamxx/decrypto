@@ -27,8 +27,8 @@ Make sure you have Python 3 installed on your system. To use Decrypto Tool, foll
    ```shell
    python3 decrypto.py -h
 5.Choose the desired decoding mode using the -m or --mode option, and provide the encoded text using the -i or --input option.
-    ```shell
-    python3 decrypto.py -m MODE -i 'encoded_text'
+      ```shell
+      python3 decrypto.py -m MODE -i 'encoded_text'
 6.The tool will output the decoded plaintext, if successful.
 
 ## Example
