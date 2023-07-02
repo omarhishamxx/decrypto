@@ -106,7 +106,9 @@ if __name__ == "__main__":
         # help command
         if len(args) > 1:
             if args[1] == '-h' or args[1] == '--help':
-                print("""\n\nUsage:-
+                draw_decrypto()
+                print("Author: Omar Hisham")
+                print("""Usage:-
         python3 decrypto.py -m MODE -i 'ciphertext'
 
     Commands:-
@@ -127,7 +129,6 @@ if __name__ == "__main__":
                 print("Decrypto Tool, Version", VERSION)
             # input command
             elif args[1] == "-m" or args[1] == "--mode":
-                draw_decrypto()
                 if len(args) > 2:
                     mode = args[2]
                     ciphertext = args[4]
