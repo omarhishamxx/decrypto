@@ -7,6 +7,8 @@ import sys
 import base64
 import urllib.parse
 
+SHIFT_VALUE = 3 
+
 MORSE_CODE = {
     '.-': 'A', '-...': 'B', '-.-.': 'C', '-..': 'D', '.': 'E',
     '..-.': 'F', '--.': 'G', '....': 'H', '..': 'I', '.---': 'J',
@@ -21,12 +23,6 @@ MORSE_CODE = {
     '-...-': '=', '.-.-.': '+', '-....-': '-', '..--.-': '_',
     '.-...': '&', '.--.-.': '@', '...-..-': '$', '.-.-..': '!'
 }
-
-
-def draw_decrypto():
-    print("     _                                                       ")
-    print("    | |                                                      ")
-    print
 
 def draw_decrypto(): 
     print("     _                                                       ")
@@ -113,16 +109,17 @@ if __name__ == "__main__":
         python3 decrypto.py -m MODE -i 'ciphertext'
 
     Commands:-
-        -m, --mode MODE           :- Decoding mode, Check Modes section below
-        -i, --input 'ciphertext' :- Encoded ciphertext
-        -h, --help               :- Display help
+        -m, --mode MODE               :- Decoding mode, Check Modes section below
+        -i, --input 'ciphertext'      :- Encoded ciphertext
+        -s, --shift SHIFT_VALUE       :- (Optional) Shift value for Caesar Cipher mode ONLY default is 3
+        -h, --help                    :- Display help
     
     Modes:-
-        b16                       :- Base16 Mode
-        b32                       :- Base32 Mode
-        b64                       :- Base64 Mode
-        C                         :- Caesar Cipher
-        M                         :- Morse Code
+        b16                           :- Base16 Mode AKA Hexadecimal
+        b32                           :- Base32 Mode 
+        b64                           :- Base64 Mode
+        C                             :- Caesar Cipher
+        M                             :- Morse Code
     """)
             # input command
             elif args[1] == "-m" or args[1] == "--mode":
@@ -145,11 +142,19 @@ if __name__ == "__main__":
                         decoded_text = decode_base64(ciphertext)
                         if decoded_text:
                             print("Decoded plaintext:", decoded_text)
+
                     elif mode == "C":
-                        shift = 3  
-                        decrypted_text = decrypt_caesar(ciphertext, shift)
+                        shift_value = SHIFT_VALUE
+                        if len(args) >= 6 and (args[5] == "-s" or args[5] == "--shift"):
+                            try:
+                                shift_value = int(args[6])
+                            except ValueError:
+                                print("Invalid shift value. Using default value of", SHIFT_VALUE)
+                        print("Shift value:", str(shift_value))        
+                        decrypted_text = decrypt_caesar(ciphertext, shift_value)
                         if decrypted_text:
                             print("Decrypted plaintext:", decrypted_text)
+
                     elif mode == "M":
                         decrypted_text = decrypt_morse_code(ciphertext)
                         if decrypted_text:
