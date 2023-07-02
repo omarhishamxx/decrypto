@@ -1,12 +1,13 @@
 # Decrypto Tool
 # Author: Omar Hisham
-# Version: 1.0.0
+# Version: 1.1
 # Description: A simple tool to decode base16, base32, base64 and Caesar Cipher.
 # Usage: python3 Decrypto.py -m MODE -i 'ciphertext'
 import sys
 import base64
 import urllib.parse
 
+VERSION = "1.1"
 SHIFT_VALUE = 3 
 
 MORSE_CODE = {
@@ -113,6 +114,7 @@ if __name__ == "__main__":
         -i, --input 'ciphertext'      :- Encoded ciphertext
         -s, --shift SHIFT_VALUE       :- (Optional) Shift value for Caesar Cipher mode ONLY default is 3
         -h, --help                    :- Display help
+        -v, --version                 :- Display version
     
     Modes:-
         b16                           :- Base16 Mode AKA Hexadecimal
@@ -121,6 +123,8 @@ if __name__ == "__main__":
         C                             :- Caesar Cipher
         M                             :- Morse Code
     """)
+            elif args[1] == '--version' or args[1] == '-v':
+                print("Decrypto Tool, Version", VERSION)
             # input command
             elif args[1] == "-m" or args[1] == "--mode":
                 draw_decrypto()
